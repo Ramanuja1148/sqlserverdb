@@ -1,10 +1,10 @@
-resource_group_name = "ramu-rg"
-location            = "southeastasia"
+resource_group_name = "rama-rg"
+location            = "centralindia"
 
-sql_server_name     = "ramu-sqlserver-demo"
-sql_db_name         = "ramu-sqldb-demo"
+sql_server_name     = "rama-sqlserver-demo"
+sql_db_name         = "rama-sqldb-demo"
 
-sql_azuread_login   = "ramudevops"
+sql_azuread_login   = "ramadevops"
 sid                 = "f76b6b93-7ac2-4a0a-bb0e-414156cd2fb0"
 tenant_id           = "2ea4351f-311e-45ce-8380-4bea38d1040c"
 
