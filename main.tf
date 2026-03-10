@@ -14,7 +14,7 @@ resource "azurerm_mssql_server" "sqlserver" {
     login_username      = var.sql_azuread_login
     object_id           = var.sid
     tenant_id           = var.tenant_id
-    }
+  }
   
   public_network_access_enabled       = false
   minimum_tls_version                 = "1.2"
