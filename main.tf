@@ -8,7 +8,7 @@ resource "azurerm_mssql_server" "sqlserver" {
   location                     = azurerm_resource_group.rg.location
   version                      = "12.0"
   administrator_login          = "azureadmin"
-  administrator_login_password = "p@s$w0rd@123"
+  administrator_login_password = "p@s$w0rd@1234"
 
   azuread_administrator {
     login_username      = var.sql_azuread_login
