@@ -28,11 +28,6 @@ variable "sid" {
   type        = string
 }
 
-variable "tenant_id" {
-  description = "Tenant ID"
-  type        = string
-}
-
 variable "resource_tags" {
   description = "Resource Tags"
   type        = map(string)
@@ -46,7 +41,6 @@ variable "sku_tier" {
 variable "compute_tier" {
   description = "Compute Tier"
   type        = string
-  default     = "serverless"
 }
 
 variable "pitr_diff_backup_interval_in_hours" {

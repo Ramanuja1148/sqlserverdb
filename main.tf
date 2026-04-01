@@ -13,7 +13,6 @@ resource "azurerm_mssql_server" "sqlserver" {
   azuread_administrator {
     login_username      = var.sql_azuread_login
     object_id           = var.sid
-    tenant_id           = var.tenant_id
   }
   
   public_network_access_enabled       = false
@@ -31,9 +30,10 @@ resource "azurerm_mssql_database" "sqldb" {
   name      = var.sql_db_name
   server_id = azurerm_mssql_server.sqlserver.id
   collation = "SQL_Latin1_General_CP1_CI_AS"
-  sku_name = "Basic"
+  sku_name = "GP_S_Gen5_1"
   max_size_gb = 1
   zone_redundant = false
+  min_capacity = var.compute_tier == "serverless" ? 0.5 : null
   auto_pause_delay_in_minutes = var.compute_tier == "serverless" ? 60 : null
   tags = var.resource_tags
   short_term_retention_policy {
@@ -41,11 +41,13 @@ resource "azurerm_mssql_database" "sqldb" {
     backup_interval_in_hours = var.pitr_diff_backup_interval_in_hours
   }
 
-  long_term_retention_policy {
-    weekly_retention  = var.ltr_weekly_retention
-    monthly_retention = var.ltr_monthly_retention
-    yearly_retention  = var.ltr_yearly_retention
-    week_of_year      = var.ltr_week_of_year
+   dynamic "long_term_retention_policy" {
+    for_each = var.compute_tier != "serverless" ? [1] : []
+    content {
+      weekly_retention  = var.ltr_weekly_retention
+      monthly_retention = var.ltr_monthly_retention
+      yearly_retention  = var.ltr_yearly_retention
+      week_of_year      = var.ltr_week_of_year
+    }
   }
-
 }
